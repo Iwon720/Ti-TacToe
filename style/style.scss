@@ -1,0 +1,84 @@
+$border_size: 0.25vw;
+$icon-size: 50px;
+$size: 33.33333333%;
+
+
+* {
+    padding: 0;
+    margin: 0;
+    color: #000000;
+    list-style-type: none;
+}
+
+html {
+  font-family: Roboto, sans-serif;
+  font-size: 2em;
+}
+
+.container{
+    display: flex;
+    justify-content: center;
+}
+.cells{
+    width: 10em;
+    height: 10em;
+    // display: flex;
+    // flex-flow: column wrap;
+    // justify-content: space-between;
+    background-color: rgb(73, 73, 73);
+}
+ul{
+    background-color: rgb(201, 201, 201);
+    display: flex;
+    justify-content: space-between;
+    height: $size;
+    // width: 100%;
+    // display: flex;
+    // flex-direction: row;
+    // justify-content: space-between;
+    // align-items: stretch;
+}
+
+li{
+    width: $size;
+    // height: 100%;
+    // text-align: center;
+    // display: flex;
+    // justify-content: center;
+    // align-items: center;
+}
+
+.border_bot{
+    border-bottom: $border_size solid;
+    box-sizing: border-box;
+}
+
+.border_top{
+    border-top: $border_size solid;
+    box-sizing: border-box;
+}
+
+.border_left{
+    border-left: $border_size solid;
+    box-sizing: border-box;
+}
+
+.border_right{
+    border-right: $border_size solid;
+    box-sizing: border-box;
+}
+
+.cross{
+    background: url(../images/cross.png) no-repeat;
+}
+
+.circle{
+    background: url(../images/circle.png) no-repeat;
+}
+
+.cross,
+.circle{
+    background-size: 90% 90%;
+    background-position: center;
+
+}
