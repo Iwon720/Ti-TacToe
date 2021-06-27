@@ -185,7 +185,7 @@ function print(numName, numNum) {
         print('0', 0);
       }
 
-      if (move == 9 && end == 0) {
+      if (move == 9 || end == 0) {
         endgame = false;
         writeMoves(move, 3);
         print('0', 0);
