@@ -69,3 +69,8 @@ li {
   background-size: 90% 90%;
   background-position: center;
 }
+
+p {
+  color: red;
+  font-size: 1.2em;
+}

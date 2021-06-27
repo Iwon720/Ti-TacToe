@@ -113,7 +113,7 @@ function print(numName, numNum) {
       }
 
       return;
-    }, 2000);
+    }, 5000);
   } else {
     var _iteratorNormalCompletion3 = true;
     var _didIteratorError3 = false;
@@ -232,15 +232,15 @@ function writeMoves(currentmove, winner) {
       break;
 
     case 1:
-      move.innerHTML = '\nEnd game! \nWinner: circles';
+      move.innerHTML = 'End game! <p>Winner: circles</p>';
       break;
 
     case 2:
-      move.innerHTML = '\nEnd game! \nWinner: crosses';
+      move.innerHTML = 'End game! <p>Winner: crosses</p>';
       break;
 
     case 3:
-      move.innerHTML = '\nEnd game! \nDraw';
+      move.innerHTML = 'End game! <br>Draw';
       break;
 
     default:

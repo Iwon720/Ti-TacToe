@@ -59,8 +59,6 @@ document.querySelector('.nine').addEventListener('click', () => {
     print(numName, numNum);
 });
 
-
-
 function print(numName, numNum){
     let check = 0;
     
@@ -82,7 +80,7 @@ function print(numName, numNum){
                 }
             }
             return;
-        }, 2000);
+        }, 5000);
     }else{
         for (let name of document.querySelector(`.${numName}`).classList) {
             if((name != cross) && (name != circle)){
@@ -168,13 +166,13 @@ function writeMoves(currentmove, winner){
             move.innerHTML = ('Move: ' + currentmove);
             break;
         case 1:
-            move.innerHTML = ('\nEnd game! \nWinner: circles');
+            move.innerHTML = ('End game! <p>Winner: circles</p>');
             break;
         case 2:
-            move.innerHTML = ('\nEnd game! \nWinner: crosses');
+            move.innerHTML = ('End game! <p>Winner: crosses</p>');
             break;
         case 3:
-            move.innerHTML = ('\nEnd game! \nDraw');
+            move.innerHTML = ('End game! <br>Draw');
             break;
         default:
             alert('MoveBreak');
