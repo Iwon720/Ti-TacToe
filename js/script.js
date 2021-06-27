@@ -78,7 +78,6 @@ function print(numName, numNum){
                 for (let name of cell.classList) {
                     if((name == cross) || (name == circle)){
                         cell.classList.remove(name);
-                        console.log('removed');
                     }
                 }
             }
@@ -116,8 +115,10 @@ function print(numName, numNum){
         }
         player = 0;
         let end = 0;
+        console.log(end);
         if(move >= 5){
             end = endGame(ttt);
+            console.log(end + ' >=5');
             if(end == 1){
                 endgame = false;
                 if(move % 2 == 0){
@@ -127,7 +128,8 @@ function print(numName, numNum){
                 }
                 print('0', 0);
             }
-            if(move == 9 || end == 0){
+            if(move == 9 && end != 1){
+                console.log(end + ' == 9');
                 endgame = false;
                 writeMoves(move, 3);
                 print('0', 0);
@@ -143,22 +145,17 @@ function endGame(arr){
             if(arr[i][j] == 1 || arr[i][j] == 2){
                 if(arr[i][j] == arr[0][j] && arr[0][j] == arr[1][j] && arr[1][j] == arr[2][j]  && ((i == 0) || (i == 1) || (i == 2))){
                     combination++;
-                    console.log(1);
                 }else if(arr[i][j] == arr[i][0] && arr[i][0] == arr[i][1] && arr[i][1] == arr[i][2]  && ((j == 0) || (j == 1) || (j == 2))){
                     combination++;
-                    console.log(2);
                 }else if(arr[i][j] == arr[0][0] && arr[0][0] == arr[1][1] && arr[1][1] == arr[2][2]  && ((i == 0 && j == 0) || (i == 1 && j == 1) || (i == 2 && j == 2))){
                     combination++;
-                    console.log(3);
                 }else if(arr[i][j] == arr[2][0] && arr[2][0] == arr[1][1] && arr[1][1] == arr[0][2] && ((i == 0 && j == 2) || (i == 1 && j == 1) || (i == 2 && j == 0))){
                     combination++;
-                    console.log(4);
                 };
             }
         }
     }
     if(combination > 0){
-        console.log(combination);
         return 1;
     }
 }
