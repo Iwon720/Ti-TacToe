@@ -1,4 +1,4 @@
-let numName, numNum, move = 0, c = 0;
+let numName, numNum, move = 0, player = 0, endgame = true;
 let cross = 'cross';
 let circle = 'circle';
 let ttt = [
@@ -62,77 +62,125 @@ document.querySelector('.nine').addEventListener('click', () => {
 
 
 function print(numName, numNum){
-    let check = 0, end;
-    for (let name of document.querySelector(`.${numName}`).classList) {
-        if((name != cross) && (name != circle)){
-            check = 0;
-        }else{
-            check = 1;
-            console.log(check);
+    let check = 0;
+    
+    if(endgame == false){ 
+        setTimeout(() => {
+            move = 0, player = 0, endgame = true;
+            writeMoves(move, 0);
+            ttt = [
+                [0, 0, 0],
+                [0, 0, 0],
+                [0, 0, 0]
+            ];
+            let cells = document.querySelectorAll('.cell');
+            for (let cell of cells) {
+                for (let name of cell.classList) {
+                    if((name == cross) || (name == circle)){
+                        cell.classList.remove(name);
+                        console.log('removed');
+                    }
+                }
+            }
+            return;
+        }, 2000);
+    }else{
+        for (let name of document.querySelector(`.${numName}`).classList) {
+            if((name != cross) && (name != circle)){
+                check = 0;
+            }else{
+                check = 1;
+            }
         }
-    }
-    if(check != 1){
-        if(move % 2 == 0) document.querySelector(`.${numName}`).classList.add(cross);
-        else document.querySelector(`.${numName}`).classList.add(circle);  
-        move++;  
-    }
-    document.querySelector('.move').innerHTML = ('Move: ' + move);
-    for (let i = 0; i < 3; i++) {
-        for (let j = 0; j < 3; j++) {
-            c++;
-            if(ttt[i][j] == 1)
-                continue;
-            else{
-                if(c == numNum){
-                    if(move % 2 == 0){
-                        ttt[i][j] = 1;
-                    }else{
-                        ttt[i][j] = 2;
+        if(check != 1){
+            if(move % 2 == 0) document.querySelector(`.${numName}`).classList.add(cross);
+            else document.querySelector(`.${numName}`).classList.add(circle);  
+            move++;  
+        }
+        writeMoves(move, 0);
+        for (let i = 0; i < 3; i++) {
+            for (let j = 0; j < 3; j++) {
+                player++;
+                if(ttt[i][j] == 1)
+                    continue;
+                else{
+                    if(player == numNum){
+                        if(move % 2 == 0){
+                            ttt[i][j] = 1;
+                        }else{
+                            ttt[i][j] = 2;
+                        }
                     }
                 }
             }
         }
-    }
-    c = 0;
-    if(move >= 5){
-        end = endGame(ttt);
-        if(end == 1){
-            let winner;
-            if(move % 2 == 0){
-                winner = 'circles'
-            }else{
-                winner = 'crosses'
+        player = 0;
+        let end = 0;
+        if(move >= 5){
+            end = endGame(ttt);
+            if(end == 1){
+                endgame = false;
+                if(move % 2 == 0){
+                    writeMoves(move, 1);
+                }else{
+                    writeMoves(move, 2);
+                }
+                print('0', 0);
             }
-            document.querySelector('.move').innerHTML = ('Move: ' + move + '\nEnd game!' + '\nWinner: ' + winner);
+            if(move == 9 && end == 0){
+                endgame = false;
+                writeMoves(move, 3);
+                print('0', 0);
+            }
         }
-        if(move == 9)
-        document.querySelector('.move').innerHTML = ('Move: ' + move + '\nEnd game!' + '\nDraw');
     }
 }
 
 function endGame(arr){
-    let c = 0;
+    let combination = 0;
     for (let i = 0; i < 3; i++) {
         for (let j = 0; j < 3; j++) {
             if(arr[i][j] == 1 || arr[i][j] == 2){
-                if(arr[i][j] == arr[1][j] && arr[1][j] == arr[2][j] && arr[2][j] == arr[0][j]){
-                    c++;
-                    console.log('1');
-                }else if(arr[i][j] == arr[i][1] && arr[i][1] == arr[i][2] && arr[i][2] == arr[i][0]){
-                    c++;
-                    console.log('2');
-                }else if(arr[i][j] == arr[1][1] && arr[1][1] == arr[2][2] && arr[2][2]== arr[0][0]){
-                    c++;
-                    console.log('3');
-                }else if(arr[i][j] == arr[2][0] && arr[2][0] == arr[1][1] && arr[1][1] == arr[0][2]){
-                    c++;
-                    console.log('4');
+                if(arr[i][j] == arr[0][j] && arr[0][j] == arr[1][j] && arr[1][j] == arr[2][j]  && ((i == 0) || (i == 1) || (i == 2))){
+                    combination++;
+                    console.log(1);
+                }else if(arr[i][j] == arr[i][0] && arr[i][0] == arr[i][1] && arr[i][1] == arr[i][2]  && ((j == 0) || (j == 1) || (j == 2))){
+                    combination++;
+                    console.log(2);
+                }else if(arr[i][j] == arr[0][0] && arr[0][0] == arr[1][1] && arr[1][1] == arr[2][2]  && ((i == 0 && j == 0) || (i == 1 && j == 1) || (i == 2 && j == 2))){
+                    combination++;
+                    console.log(3);
+                }else if(arr[i][j] == arr[2][0] && arr[2][0] == arr[1][1] && arr[1][1] == arr[0][2] && ((i == 0 && j == 2) || (i == 1 && j == 1) || (i == 2 && j == 0))){
+                    combination++;
+                    console.log(4);
                 };
             }
         }
     }
-    console.log(c);
-    if(c > 0){
+    if(combination > 0){
+        console.log(combination);
         return 1;
+    }
+}
+
+function writeMoves(currentmove, winner){
+    let move = document.querySelector('.move');
+    move.innerHTML = ('Move: ' + currentmove);
+    switch (winner) {
+        case 0:
+            move.innerHTML = ('Move: ' + currentmove);
+            break;
+        case 1:
+            move.innerHTML = ('\nEnd game! \nWinner: circles');
+            break;
+        case 2:
+            move.innerHTML = ('\nEnd game! \nWinner: crosses');
+            break;
+        case 3:
+            move.innerHTML = ('\nEnd game! \nDraw');
+            break;
+        default:
+            alert('MoveBreak');
+            break;
     }
 }
